@@ -1,0 +1,6 @@
+{
+  "runtime": "python",
+  "buildCommand": "pip install -r requirements.txt",
+  "startCommand": "uvicorn app.main:app --host 0.0.0.0 --port $PORT",
+  "stack": "Python 3.12 + FastAPI web service served by uvicorn, tested with pytest"
+}
