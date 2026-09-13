@@ -27,6 +27,12 @@ def health() -> dict:
     return {"status": "ok", "time": datetime.now(timezone.utc).isoformat()}
 
 
+@app.get("/healthz")
+def healthz() -> dict:
+    """Minimal liveness probe: always {"ok": true}, no timestamp."""
+    return {"ok": True}
+
+
 def get_port() -> int:
     """Port from the PORT env var, falling back to 8000 for local runs."""
     return int(os.environ.get("PORT", "8000"))

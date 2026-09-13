@@ -43,10 +43,10 @@ This folder lives inside `agent-project/projects/`, so the top-level
   pip install -r requirements.txt`
 - Run: `uvicorn app.main:app --reload --port 8000` (or `python -m app.main`,
   which honours `PORT`). Check `GET /` and `GET /health`.
-- Test: `pytest` (3 tests, in-process, ~0.3s).
+- Test: `pytest` (4 tests, in-process, ~0.3s).
 
 ## Key files
-- `app/main.py` -- the FastAPI app: `/`, `/health`, `get_port()`.
+- `app/main.py` -- the FastAPI app: `/`, `/health`, `/healthz`, `get_port()`.
 - `tests/test_main.py` -- endpoint + PORT tests.
 - `requirements.txt` -- pinned-range deps.
 - `.kaalsat/deploy.json` -- Render build/start commands for Kaalsat.
@@ -73,3 +73,4 @@ This folder lives inside `agent-project/projects/`, so the top-level
 - 2026-09-14: project registered with Kaalsat.
 - 2026-09-14: scaffolded FastAPI service (app/main.py, tests, README,
   .gitignore, .env.example, .kaalsat/deploy.json); 3 tests passing.
+- 2026-09-14: added GET /healthz returning {"ok": true} plus a test; 4 tests passing.

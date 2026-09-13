@@ -10,6 +10,7 @@ endpoints:
 |-----------|-------------------------------------------|
 | `GET /`   | Hello message with the project code       |
 | `GET /health` | Health check (`{"status": "ok", ...}`) |
+| `GET /healthz` | Minimal liveness probe (`{"ok": true}`) |
 
 ## Requirements
 

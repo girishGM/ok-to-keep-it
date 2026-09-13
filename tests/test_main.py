@@ -19,6 +19,12 @@ def test_health_ok():
     assert resp.json()["status"] == "ok"
 
 
+def test_healthz_returns_ok_true():
+    resp = client.get("/healthz")
+    assert resp.status_code == 200
+    assert resp.json() == {"ok": True}
+
+
 def test_get_port_reads_env(monkeypatch):
     monkeypatch.setenv("PORT", "1234")
     assert get_port() == 1234
