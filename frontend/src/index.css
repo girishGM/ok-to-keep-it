@@ -30,13 +30,27 @@ body {
   place-items: center;
   padding: 2rem 1rem;
   overflow: hidden;
+  /* Sunrise illustration, softened by a warm wash so the card stays legible. */
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(255, 243, 230, 0.35) 0%,
+      rgba(255, 236, 214, 0.15) 45%,
+      rgba(255, 225, 204, 0.55) 100%
+    ),
+    url("./assets/sunrise.svg");
+  background-size: cover, cover;
+  background-position: center, center bottom;
+  background-repeat: no-repeat;
+  animation: dawn 1.4s ease-out both;
 }
 
 .glow {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.55;
+  filter: blur(90px);
+  opacity: 0.35;
+  mix-blend-mode: screen;
   pointer-events: none;
 }
 .glow-a {
@@ -59,7 +73,9 @@ body {
   max-width: 560px;
   width: 100%;
   background: var(--card);
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(10px) saturate(1.1);
+  -webkit-backdrop-filter: blur(10px) saturate(1.1);
+  border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: 24px;
   padding: 2.5rem 2.25rem;
   box-shadow: 0 18px 50px rgba(120, 70, 30, 0.14);
@@ -167,6 +183,15 @@ h1 {
   }
 }
 
+@keyframes dawn {
+  from {
+    filter: brightness(0.85) saturate(0.9);
+  }
+  to {
+    filter: brightness(1) saturate(1);
+  }
+}
+
 @keyframes rise {
   from {
     opacity: 0;
@@ -180,7 +205,8 @@ h1 {
 
 @media (prefers-reduced-motion: reduce) {
   .wave,
-  .card {
+  .card,
+  .page {
     animation: none;
   }
 }

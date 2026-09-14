@@ -2,8 +2,8 @@
 
 Project code: `ok-to-keep-it`
 
-A small FastAPI service that serves a warm React welcome page and a few JSON
-endpoints. It exists to give Kaalsat's Telegram command flow something real
+A small FastAPI service that serves a warm React welcome page (with a
+blended sunrise background) and a few JSON endpoints. It exists to give Kaalsat's Telegram command flow something real
 to build, test and deploy.
 
 | Route          | Purpose                                            |

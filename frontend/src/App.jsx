@@ -34,9 +34,10 @@ export default function App() {
           So glad you're here.
         </h1>
         <p className="lead">
-          This little page was built to give the Telegram command flow
-          something friendly to say hello with. Pull up a chair, have a look
-          around, and know that everything here is running just for you.
+          A new day is breaking over the hills behind this page, and it was
+          built to give the Telegram command flow something friendly to say
+          hello with. Pull up a chair, enjoy the sunrise, and know that
+          everything here is running just for you.
         </p>
 
         <div className="pill" data-state={error ? "down" : info ? "up" : "loading"}>

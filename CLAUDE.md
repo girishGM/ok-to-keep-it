@@ -38,6 +38,10 @@ This folder lives inside `agent-project/projects/`, so the top-level
   build`) as part of the build command in `.kaalsat/deploy.json`. Render's
   Python runtime ships Node; `NODE_VERSION` can pin it.
 - Vite dev server proxies `/api`, `/health*` to :8000 for local work.
+- Background art is an in-repo SVG, not a downloaded photo: no licensing
+  or external fetch, tiny (~3 KB), sharp at any viewport. Blended via a
+  translucent warm gradient + `backdrop-filter` on the card so text stays
+  readable.
 - Config is env-vars only. `PORT` is read via `get_port()` (default 8000)
   so the same code runs locally and on Render, which injects `PORT`.
 - `.env.example` documents every env var; there are no secrets yet. If one
@@ -64,7 +68,10 @@ This folder lives inside `agent-project/projects/`, so the top-level
   `/health`, `/healthz`, `/assets` mount, `get_port()`.
 - `frontend/src/App.jsx` -- the welcome page component (greeting, status
   pill fed by `/api/hello`, endpoint links).
-- `frontend/src/index.css` -- warm palette, card, wave animation.
+- `frontend/src/index.css` -- warm palette, card, wave animation, sunrise
+  background (gradient wash over the SVG, blurred glass card on top).
+- `frontend/src/assets/sunrise.svg` -- hand-drawn sunrise illustration
+  (sky gradient, sun + rays, layered hills); Vite inlines it into the CSS.
 - `frontend/vite.config.js` -- React plugin, dev proxy, `dist` output.
 - `tests/test_main.py` -- endpoint + PORT tests.
 - `requirements.txt` -- pinned-range deps.
@@ -94,3 +101,4 @@ This folder lives inside `agent-project/projects/`, so the top-level
   .gitignore, .env.example, .kaalsat/deploy.json); 3 tests passing.
 - 2026-09-14: added GET /healthz returning {"ok": true} plus a test; 4 tests passing.
 - 2026-09-14: added React/Vite welcome page in frontend/, served by FastAPI at /; hello JSON moved to /api/hello; Render build now also runs npm ci && npm run build; 5 tests passing.
+- 2026-09-14: added blended sunrise SVG background to the welcome page (frontend/src/assets/sunrise.svg, index.css overlay/glass card); 5 tests passing.

@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Sunrise over soft hills">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5b4a8a"/>
+      <stop offset="0.35" stop-color="#c4708a"/>
+      <stop offset="0.62" stop-color="#f6a06a"/>
+      <stop offset="0.82" stop-color="#ffd48a"/>
+      <stop offset="1" stop-color="#fff0c9"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#fff6d6" stop-opacity="1"/>
+      <stop offset="0.35" stop-color="#ffd27a" stop-opacity="0.85"/>
+      <stop offset="0.7" stop-color="#ff9a5a" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#ff9a5a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="sun" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#fffbe8"/>
+      <stop offset="0.7" stop-color="#ffe08a"/>
+      <stop offset="1" stop-color="#ffc35c"/>
+    </radialGradient>
+    <linearGradient id="hillFar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b98aa6"/>
+      <stop offset="1" stop-color="#8f6f97"/>
+    </linearGradient>
+    <linearGradient id="hillMid" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d69a83"/>
+      <stop offset="1" stop-color="#a8727a"/>
+    </linearGradient>
+    <linearGradient id="hillNear" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f0b58a"/>
+      <stop offset="1" stop-color="#c98668"/>
+    </linearGradient>
+    <linearGradient id="cloud" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffd9c2" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#ffe3cf" stop-opacity="0.75"/>
+      <stop offset="1" stop-color="#ffd9c2" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- sky -->
+  <rect width="1600" height="900" fill="url(#sky)"/>
+
+  <!-- soft cloud bands -->
+  <ellipse cx="380" cy="230" rx="420" ry="26" fill="url(#cloud)"/>
+  <ellipse cx="1180" cy="300" rx="480" ry="30" fill="url(#cloud)"/>
+  <ellipse cx="700" cy="380" rx="520" ry="22" fill="url(#cloud)"/>
+
+  <!-- sun glow and rays -->
+  <circle cx="800" cy="600" r="420" fill="url(#glow)"/>
+  <g opacity="0.22" fill="#fff1c4">
+    <polygon points="800,600 560,120 640,120"/>
+    <polygon points="800,600 960,120 1040,120"/>
+    <polygon points="800,600 260,260 300,200"/>
+    <polygon points="800,600 1340,260 1300,200"/>
+    <polygon points="800,600 120,520 120,470"/>
+    <polygon points="800,600 1480,520 1480,470"/>
+  </g>
+  <circle cx="800" cy="600" r="120" fill="url(#sun)"/>
+
+  <!-- hills -->
+  <path d="M0,640 C220,560 380,600 560,640 C760,690 920,560 1120,600 C1320,640 1460,600 1600,560 L1600,900 L0,900 Z" fill="url(#hillFar)" opacity="0.85"/>
+  <path d="M0,720 C200,660 360,700 540,730 C760,770 900,660 1100,700 C1320,740 1440,700 1600,660 L1600,900 L0,900 Z" fill="url(#hillMid)" opacity="0.9"/>
+  <path d="M0,800 C240,750 420,790 620,810 C840,830 980,760 1200,790 C1380,815 1500,790 1600,770 L1600,900 L0,900 Z" fill="url(#hillNear)"/>
+
+  <!-- gentle sun reflection on the near hill -->
+  <ellipse cx="800" cy="800" rx="260" ry="50" fill="#ffe3a8" opacity="0.28"/>
+</svg>
