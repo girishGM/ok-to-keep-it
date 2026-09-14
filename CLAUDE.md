@@ -19,15 +19,25 @@ This folder lives inside `agent-project/projects/`, so the top-level
   session, so keep it truthful.
 
 ## Tech stack
-- Python 3.12, FastAPI, uvicorn (ASGI server), pytest + httpx (tests).
+- Backend: Python 3.12, FastAPI, uvicorn (ASGI server), pytest + httpx (tests).
+- Frontend: React 18 + Vite 5 (plain JSX + CSS, no UI library) in `frontend/`.
 - Why: the project only needs a small HTTP service that Kaalsat can build,
   test and deploy to Render. FastAPI is mainstream, has near-zero
   boilerplate, ships a test client, and Render's Python runtime runs it
-  with a one-line start command.
+  with a one-line start command. Vite is the mainstream React toolchain
+  and its static build is trivially served by FastAPI.
 
 ## Architecture decisions
-- Single module `app/main.py` holds the whole app (two GET routes). The
-  purpose is to test the Telegram command flow, so no layering, DB or auth.
+- Single module `app/main.py` holds the whole backend. The purpose is to
+  test the Telegram command flow, so no layering, DB or auth.
+- One Render service, not two: FastAPI serves `frontend/dist/index.html`
+  at `/` and mounts `frontend/dist/assets` at `/assets`. The JSON hello
+  moved to `/api/hello`. If the frontend is not built, `/` falls back to
+  the JSON hello so tests and bare checkouts still work.
+- `frontend/dist` is git-ignored; Render builds it (`npm ci && npm run
+  build`) as part of the build command in `.kaalsat/deploy.json`. Render's
+  Python runtime ships Node; `NODE_VERSION` can pin it.
+- Vite dev server proxies `/api`, `/health*` to :8000 for local work.
 - Config is env-vars only. `PORT` is read via `get_port()` (default 8000)
   so the same code runs locally and on Render, which injects `PORT`.
 - `.env.example` documents every env var; there are no secrets yet. If one
@@ -41,16 +51,25 @@ This folder lives inside `agent-project/projects/`, so the top-level
 ## How to run / test
 - Setup: `python3 -m venv .venv && source .venv/bin/activate &&
   pip install -r requirements.txt`
+- Frontend build: `npm --prefix frontend ci && npm --prefix frontend run build`
+  (needs Node 22). Dev: `npm --prefix frontend run dev`.
 - Run: `uvicorn app.main:app --reload --port 8000` (or `python -m app.main`,
-  which honours `PORT`). Check `GET /` and `GET /health`.
-- Test: `pytest` (4 tests, in-process, ~0.3s).
+  which honours `PORT`). Open `/` for the welcome page; `/api/hello`,
+  `/health`, `/healthz` for JSON.
+- Test: `pytest` (5 tests, in-process, ~0.3s; pass with or without the
+  frontend built).
 
 ## Key files
-- `app/main.py` -- the FastAPI app: `/`, `/health`, `/healthz`, `get_port()`.
+- `app/main.py` -- the FastAPI app: `/` (React page), `/api/hello`,
+  `/health`, `/healthz`, `/assets` mount, `get_port()`.
+- `frontend/src/App.jsx` -- the welcome page component (greeting, status
+  pill fed by `/api/hello`, endpoint links).
+- `frontend/src/index.css` -- warm palette, card, wave animation.
+- `frontend/vite.config.js` -- React plugin, dev proxy, `dist` output.
 - `tests/test_main.py` -- endpoint + PORT tests.
 - `requirements.txt` -- pinned-range deps.
 - `.kaalsat/deploy.json` -- Render build/start commands for Kaalsat.
-- `.env.example` -- env var names (currently just `PORT`).
+- `.env.example` -- env var names (`PORT`, optional `NODE_VERSION`).
 - `README.md` -- local run/test instructions.
 - `STATUS.json` -- live status for Kaalsat (see bookkeeping above).
 
@@ -74,3 +93,4 @@ This folder lives inside `agent-project/projects/`, so the top-level
 - 2026-09-14: scaffolded FastAPI service (app/main.py, tests, README,
   .gitignore, .env.example, .kaalsat/deploy.json); 3 tests passing.
 - 2026-09-14: added GET /healthz returning {"ok": true} plus a test; 4 tests passing.
+- 2026-09-14: added React/Vite welcome page in frontend/, served by FastAPI at /; hello JSON moved to /api/hello; Render build now also runs npm ci && npm run build; 5 tests passing.

@@ -1,6 +1,6 @@
 {
   "runtime": "python",
-  "buildCommand": "pip install -r requirements.txt",
+  "buildCommand": "pip install -r requirements.txt && npm --prefix frontend ci && npm --prefix frontend run build",
   "startCommand": "uvicorn app.main:app --host 0.0.0.0 --port $PORT",
-  "stack": "Python 3.12 + FastAPI web service served by uvicorn, tested with pytest"
+  "stack": "Python 3.12 + FastAPI serving a Vite/React welcome page (built during deploy), uvicorn, pytest"
 }

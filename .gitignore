@@ -26,3 +26,7 @@ htmlcov/
 # kaalsat
 STATUS.json
 render.json
+
+# Frontend (Vite/React)
+frontend/node_modules/
+frontend/dist/

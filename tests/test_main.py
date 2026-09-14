@@ -1,16 +1,26 @@
 from fastapi.testclient import TestClient
 
-from app.main import app, get_port
+from app.main import app, frontend_built, get_port
 
 client = TestClient(app)
 
 
-def test_root_says_hello():
-    resp = client.get("/")
+def test_api_hello():
+    resp = client.get("/api/hello")
     assert resp.status_code == 200
     body = resp.json()
     assert body["project"] == "ok-to-keep-it"
     assert "hello" in body["message"]
+
+
+def test_root_serves_page_or_json():
+    resp = client.get("/")
+    assert resp.status_code == 200
+    if frontend_built():
+        assert "text/html" in resp.headers["content-type"]
+        assert "<div id=\"root\">" in resp.text
+    else:
+        assert resp.json()["project"] == "ok-to-keep-it"
 
 
 def test_health_ok():
