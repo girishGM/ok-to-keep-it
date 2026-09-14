@@ -59,13 +59,17 @@ This folder lives inside `agent-project/projects/`, so the top-level
   (needs Node 22). Dev: `npm --prefix frontend run dev`.
 - Run: `uvicorn app.main:app --reload --port 8000` (or `python -m app.main`,
   which honours `PORT`). Open `/` for the welcome page; `/api/hello`,
-  `/health`, `/healthz` for JSON.
-- Test: `pytest` (5 tests, in-process, ~0.3s; pass with or without the
-  frontend built).
+  `/api/version`, `/health`, `/healthz` for JSON.
+- Test: `pytest` (7 tests, in-process, ~0.3s; pass with or without the
+  frontend built). `pytest.ini` sets `pythonpath = .` so `app` imports.
 
 ## Key files
 - `app/main.py` -- the FastAPI app: `/` (React page), `/api/hello`,
-  `/health`, `/healthz`, `/assets` mount, `get_port()`.
+  `/api/version`, `/health`, `/healthz`, `/assets` mount, `get_port()`,
+  `read_version()`.
+- `VERSION` -- the app version (plain text, e.g. `0.1.0`); bump it here,
+  `/api/version` reads it on every request.
+- `pytest.ini` -- `pythonpath = .` and `testpaths = tests`.
 - `frontend/src/App.jsx` -- the welcome page component (greeting, status
   pill fed by `/api/hello`, endpoint links).
 - `frontend/src/index.css` -- warm palette, card, wave animation, sunrise
@@ -102,3 +106,4 @@ This folder lives inside `agent-project/projects/`, so the top-level
 - 2026-09-14: added GET /healthz returning {"ok": true} plus a test; 4 tests passing.
 - 2026-09-14: added React/Vite welcome page in frontend/, served by FastAPI at /; hello JSON moved to /api/hello; Render build now also runs npm ci && npm run build; 5 tests passing.
 - 2026-09-14: added blended sunrise SVG background to the welcome page (frontend/src/assets/sunrise.svg, index.css overlay/glass card); 5 tests passing.
+- 2026-09-14: added GET /api/version reading the new VERSION file (0.1.0) plus two tests; added pytest.ini (pythonpath = .) so bare `pytest` works; 7 tests passing.

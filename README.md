@@ -10,6 +10,7 @@ to build, test and deploy.
 |----------------|----------------------------------------------------|
 | `GET /`        | React welcome page (JSON hello if not built)       |
 | `GET /api/hello` | Hello JSON with the project code                 |
+| `GET /api/version` | App version from the `VERSION` file (`{"version": "0.1.0"}`) |
 | `GET /health`  | Health check (`{"status": "ok", ...}`)             |
 | `GET /healthz` | Minimal liveness probe (`{"ok": true}`)            |
 

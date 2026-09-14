@@ -1,5 +1,6 @@
 from fastapi.testclient import TestClient
 
+import app.main as main
 from app.main import app, frontend_built, get_port
 
 client = TestClient(app)
@@ -11,6 +12,22 @@ def test_api_hello():
     body = resp.json()
     assert body["project"] == "ok-to-keep-it"
     assert "hello" in body["message"]
+
+
+def test_api_version():
+    resp = client.get("/api/version")
+    assert resp.status_code == 200
+    assert resp.json() == {"version": "0.1.0"}
+
+
+def test_api_version_reads_file(monkeypatch, tmp_path):
+    version_file = tmp_path / "VERSION"
+    version_file.write_text("9.8.7\n")
+    monkeypatch.setattr(main, "VERSION_FILE", version_file)
+    assert client.get("/api/version").json() == {"version": "9.8.7"}
+
+    monkeypatch.setattr(main, "VERSION_FILE", tmp_path / "missing")
+    assert client.get("/api/version").json() == {"version": "0.0.0"}
 
 
 def test_root_serves_page_or_json():
