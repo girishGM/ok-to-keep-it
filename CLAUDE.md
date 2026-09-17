@@ -108,3 +108,4 @@ This folder lives inside `agent-project/projects/`, so the top-level
 - 2026-09-14: added blended sunrise SVG background to the welcome page (frontend/src/assets/sunrise.svg, index.css overlay/glass card); 5 tests passing.
 - 2026-09-14: added GET /api/version reading the new VERSION file (0.1.0) plus two tests; added pytest.ini (pythonpath = .) so bare `pytest` works; 7 tests passing.
 - 2026-09-14: fixed failed Render deploy: removed the unclosed `def deliberately_broken(` appended to app/main.py in 74c81f8 (SyntaxError on import); 7 tests passing.
+- 2026-09-17: answered 'what can be done with this project' from docs; no code changes.
